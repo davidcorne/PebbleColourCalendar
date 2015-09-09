@@ -26,7 +26,7 @@
 #define TIME_DISPLAY_WIDTH  (DEVICE_WIDTH - TIME_DISPLAY_LEFT)
 #define TIME_DISPLAY_HEIGHT       45
 
-#define CALENDAR_LEFT              0
-#define CALENDAR_TOP              90
-#define CALENDAR_WIDTH  DEVICE_WIDTH
+#define CALENDAR_LEFT              2
+#define CALENDAR_TOP              88
+#define CALENDAR_WIDTH  (DEVICE_WIDTH - 4)
 #define CALENDAR_HEIGHT (DEVICE_HEIGHT - CALENDAR_TOP)
