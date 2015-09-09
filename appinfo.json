@@ -1,0 +1,18 @@
+{
+  "uuid": "c5dfbad5-7e83-4a8f-b2b9-6f8bd391530d",
+  "shortName": "ColourCal",
+  "longName": "ColourCal",
+  "companyName": "CodeCorne",
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["basalt"],
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}

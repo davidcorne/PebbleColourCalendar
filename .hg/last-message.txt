@@ -1,0 +1,1 @@
+Move battery into it's own file
