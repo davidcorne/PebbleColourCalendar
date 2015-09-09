@@ -60,7 +60,7 @@ static void battery_meter_update(Layer* layer, GContext* context)
     graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorRed, GColorBlack));
   }
   
-  int full_battery_width = STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH - 2;
+  int full_battery_width = STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH - 4;
   // full_battery_width should be divisible by 10
   GRect battery_rect = GRect(
     bounds.origin.x + 1,
