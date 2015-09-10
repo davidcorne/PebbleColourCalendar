@@ -9,7 +9,7 @@
 
 #define STATUS_BATTERY_LEFT       96
 #define STATUS_BATTERY_TOP         4
-#define STATUS_BATTERY_WIDTH      47 
+#define STATUS_BATTERY_WIDTH      43
 // STATUS_BATTERY_WIDTH should be divisible by 10, after subtracting 
 // STATUS_BATTERY_NUB_WIDTH, and 4 (2 pixels/side for the 'border')
 #define STATUS_BATTERY_HEIGHT     15

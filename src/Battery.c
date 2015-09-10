@@ -29,6 +29,33 @@ static void battery_meter_update(Layer* layer, GContext* context)
   graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorGreen, GColorBlack));
   graphics_context_set_stroke_color(context, COLOR_FALLBACK(GColorBlack, GColorBlack));
   
+  // Draw the battery meter.
+  if (50 <= s_battery_level) {
+    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorGreen, GColorBlack));
+  } else if (30 <= s_battery_level && s_battery_level <= 50) {
+    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorChromeYellow, GColorBlack));
+  } else {
+    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorRed, GColorBlack));
+  }
+  
+  int full_battery_width = STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH;
+  // -1 otherwise at 100% it will overwrite the nub.
+  int rect_width = (full_battery_width / 10) * (s_battery_level / 10) - 1;
+  // full_battery_width should be divisible by 10
+  GRect battery_rect = GRect(
+    bounds.origin.x + 1,
+    bounds.origin.y + 1,
+    rect_width,
+    STATUS_BATTERY_HEIGHT - 2
+  );
+  uint16_t corner_radius = 0;
+  graphics_fill_rect(
+    context,
+    battery_rect,
+    corner_radius,
+    GCornerNone
+  );
+  
   // Draw the battery box.
   graphics_draw_rect(
     context,
@@ -49,31 +76,6 @@ static void battery_meter_update(Layer* layer, GContext* context)
       STATUS_BATTERY_NUB_WIDTH,
       STATUS_BATTERY_NUB_HEIGHT
     )
-  );
-  
-  // Draw the battery meter.
-  if (50 <= s_battery_level) {
-    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorGreen, GColorBlack));
-  } else if (30 <= s_battery_level && s_battery_level <= 50) {
-    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorChromeYellow, GColorBlack));
-  } else {
-    graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorRed, GColorBlack));
-  }
-  
-  int full_battery_width = STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH - 4;
-  // full_battery_width should be divisible by 10
-  GRect battery_rect = GRect(
-    bounds.origin.x + 1,
-    bounds.origin.y + 1,
-    (full_battery_width / 10) * (s_battery_level / 10),
-    STATUS_BATTERY_HEIGHT - 2
-  );
-  uint16_t corner_radius = 0;
-  graphics_fill_rect(
-    context,
-    battery_rect,
-    corner_radius,
-    GCornerNone
   );
 }
 
