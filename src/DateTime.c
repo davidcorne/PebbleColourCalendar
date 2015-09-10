@@ -6,7 +6,9 @@ static TextLayer* s_time_layer;
 static TextLayer* s_date_layer;
 
 static char s_time_buffer[9];
-static char s_date_buffer[16];
+// [abbreviated-day] [01-31] [abbreviated-month]
+// 3 + 1 + 2 + 1 + 3 + 1
+static char s_date_buffer[11];
 
 TextLayer* datetime_create_time_layer()
 {
