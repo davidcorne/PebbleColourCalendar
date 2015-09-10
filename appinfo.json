@@ -1,18 +1,25 @@
 {
-  "uuid": "c5dfbad5-7e83-4a8f-b2b9-6f8bd391530d",
-  "shortName": "ColourCal",
-  "longName": "ColourCal",
-  "companyName": "CorneCode",
-  "versionLabel": "1.0",
-  "sdkVersion": "3",
-  "targetPlatforms": ["basalt", "aplite"],
-  "watchapp": {
-    "watchface": true
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "resources": {
-    "media": []
-  }
+    "appKeys": {
+        "dummy": 0
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "CorneCode",
+    "longName": "ColourCal",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "ColourCal",
+    "targetPlatforms": [
+        "basalt",
+        "aplite"
+    ],
+    "uuid": "c5dfbad5-7e83-4a8f-b2b9-6f8bd391530d",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
 }

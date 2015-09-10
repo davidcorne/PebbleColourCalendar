@@ -19,12 +19,21 @@ static void update_battery_label()
     "%d%%", 
     s_battery_level
   );
+  APP_LOG(
+    APP_LOG_LEVEL_DEBUG,
+    "Battery label drawn with buffer %s",
+    s_battery_percent_buffer
+  );
   text_layer_set_text(s_battery_label_layer, s_battery_percent_buffer);
 }
 
 static void battery_meter_update(Layer* layer, GContext* context) 
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery drawn with level %d%%.", s_battery_level);
+  APP_LOG(
+    APP_LOG_LEVEL_DEBUG,
+    "Battery drawn with level %d",
+    s_battery_level
+  );
   GRect bounds = layer_get_bounds(layer);
   graphics_context_set_fill_color(context, COLOR_FALLBACK(GColorGreen, GColorBlack));
   graphics_context_set_stroke_color(context, COLOR_FALLBACK(GColorBlack, GColorBlack));

@@ -34,6 +34,9 @@ static void main_window_load(Window *window)
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(label_layer));
 
   layer_add_child(window_get_root_layer(window), calendar_create_layer());
+  
+  // Update the battery
+  battery_update(battery_state_service_peek().charge_percent);
 }
 
 static void tick_handler(struct tm* tick_time, TimeUnits units_changed) 
