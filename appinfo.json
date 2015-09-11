@@ -9,7 +9,13 @@
     "longName": "ColourCal",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "type": "png",
+                "name": "CHARGING_IMAGE",
+                "file": "charging_20_20.png"
+            }
+    ]
     },
     "sdkVersion": "3",
     "shortName": "ColourCal",

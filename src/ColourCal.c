@@ -24,6 +24,13 @@ static void main_window_load(Window *window)
   // draw them
   datetime_update();
   
+  // Add charging image to the window
+  BitmapLayer* charging_image_layer = battery_create_charging_layer();
+  layer_add_child(
+    window_get_root_layer(window),
+    bitmap_layer_get_layer(charging_image_layer)
+  );
+  
   // Add battery meter to window
   Layer* meter_layer = battery_create_meter_layer();
   layer_add_child(window_get_root_layer(window), meter_layer);
@@ -36,7 +43,8 @@ static void main_window_load(Window *window)
   layer_add_child(window_get_root_layer(window), calendar_create_layer());
   
   // Update the battery
-  battery_update(battery_state_service_peek().charge_percent);
+  BatteryChargeState battery_state = battery_state_service_peek();
+  battery_update(battery_state.charge_percent, battery_state.is_charging);
 }
 
 static void tick_handler(struct tm* tick_time, TimeUnits units_changed) 
@@ -46,7 +54,7 @@ static void tick_handler(struct tm* tick_time, TimeUnits units_changed)
 
 static void battery_callback(BatteryChargeState state) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery_callback");
-  battery_update(state.charge_percent);
+  battery_update(state.charge_percent, state.is_charging);
 }
 
 static void main_window_unload(Window *window) 
@@ -55,6 +63,7 @@ static void main_window_unload(Window *window)
   datetime_destroy_date_layer();
   battery_destroy_meter_layer();
   battery_destroy_label_layer();
+  battery_destroy_charging_layer();
   calendar_destroy_layer();
 }
 

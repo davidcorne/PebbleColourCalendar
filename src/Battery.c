@@ -6,10 +6,13 @@
 
 static TextLayer* s_battery_label_layer;
 static Layer* s_battery_meter_layer;
+static BitmapLayer* s_charging_image_layer;
 
 // Displayable state
 static char s_battery_percent_buffer[] = "%d%%";
 static int s_battery_level = 10;
+static bool s_charging = true;
+static GBitmap* s_charging_bitmap;
 
 static void update_battery_label() 
 {
@@ -139,12 +142,54 @@ void battery_destroy_meter_layer()
   layer_destroy(s_battery_meter_layer);
 }
 
-void battery_update(int battery_level)
+BitmapLayer* battery_create_charging_layer()
+{
+  // Load the bitmap resource first.
+  s_charging_bitmap = gbitmap_create_with_resource(RESOURCE_ID_CHARGING_IMAGE);
+  s_charging_image_layer = bitmap_layer_create(
+    GRect(
+      BATTERY_CHARGING_LEFT,
+      BATTERY_CHARGING_TOP,
+      BATTERY_CHARGING_WIDTH,
+      BATTERY_CHARGING_HEIGHT
+    )
+  );
+  bitmap_layer_set_bitmap(s_charging_image_layer, s_charging_bitmap);
+  return s_charging_image_layer;
+}
+
+void battery_destroy_charging_layer()
+{
+  bitmap_layer_destroy(s_charging_image_layer);
+}
+
+void charging_update()
+{
+  Layer* to_hide = 0;
+  Layer* to_show = 0;
+  if (s_charging) {
+    // The watch is charging
+    to_show = bitmap_layer_get_layer(s_charging_image_layer);
+    to_hide = text_layer_get_layer(s_battery_label_layer);
+  } else {
+    to_show = text_layer_get_layer(s_battery_label_layer);
+    to_hide = bitmap_layer_get_layer(s_charging_image_layer);
+  }
+  layer_set_hidden(to_hide, true);
+  layer_set_hidden(to_show, false);
+}
+
+void battery_update(int battery_level, bool charging)
 {
   if (battery_level != s_battery_level) {
     // Record the new battery level
     s_battery_level = battery_level;
     layer_mark_dirty(s_battery_meter_layer);
     update_battery_label();
+  }
+  if (charging != s_charging) {
+    // Record the charging state
+    s_charging = charging;
+    charging_update();
   }
 }
