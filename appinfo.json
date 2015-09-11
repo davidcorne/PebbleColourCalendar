@@ -14,6 +14,16 @@
                 "type": "png",
                 "name": "CHARGING_IMAGE",
                 "file": "charging_20_20.png"
+            },
+            {
+                "type": "png",
+                "name": "BLUETOOTH_IMAGE",
+                "file": "bluetooth_20_20.png"
+            },
+            {
+                "type": "png",
+                "name": "AIRPLANE_IMAGE",
+                "file": "airplane_20_20.png"
             }
     ]
     },

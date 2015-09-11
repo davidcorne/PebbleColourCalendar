@@ -3,6 +3,7 @@
 #include "Calendar.h"
 #include "DateTime.h"
 #include "Battery.h"
+#include "Connection.h"
 
 static Window* s_main_window;
 
@@ -24,6 +25,12 @@ static void main_window_load(Window *window)
   // draw them
   datetime_update();
   
+  // Add the connected icon
+  layer_add_child(
+    window_get_root_layer(window),
+    connection_create_connected_layer()
+  );
+  
   // Add charging image to the window
   BitmapLayer* charging_image_layer = battery_create_charging_layer();
   layer_add_child(
@@ -42,9 +49,12 @@ static void main_window_load(Window *window)
 
   layer_add_child(window_get_root_layer(window), calendar_create_layer());
   
-  // Update the battery
-  BatteryChargeState battery_state = battery_state_service_peek();
-  battery_update(battery_state.charge_percent, battery_state.is_charging);
+  // // Update the battery
+  // BatteryChargeState battery_state = battery_state_service_peek();
+  // battery_update(battery_state.charge_percent, battery_state.is_charging);
+  
+  // // Update the connection status
+  // connection_update(bluetooth_connection_service_peek());
 }
 
 static void tick_handler(struct tm* tick_time, TimeUnits units_changed) 
@@ -52,15 +62,23 @@ static void tick_handler(struct tm* tick_time, TimeUnits units_changed)
   datetime_update();
 }
 
-static void battery_callback(BatteryChargeState state) {
+static void battery_callback(BatteryChargeState state) 
+{
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery_callback");
   battery_update(state.charge_percent, state.is_charging);
+}
+
+static void connection_callback(bool connected)
+{
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "connection_callback");
+  connection_update(connected);
 }
 
 static void main_window_unload(Window *window) 
 {
   datetime_destroy_time_layer();
   datetime_destroy_date_layer();
+  connection_destroy_connected_layer();
   battery_destroy_meter_layer();
   battery_destroy_label_layer();
   battery_destroy_charging_layer();
@@ -93,6 +111,12 @@ static void init()
   
   // Ensure battery level is displayed from the start
   battery_callback(battery_state_service_peek());
+  
+  // Listen for connection changes
+  bluetooth_connection_service_subscribe(connection_callback);
+  
+  // Ensure it's correct
+  connection_callback(bluetooth_connection_service_peek());
 }
 
 static void deinit()

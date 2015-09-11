@@ -2,6 +2,11 @@
 #define DEVICE_WIDTH             144
 #define DEVICE_HEIGHT            168
 
+#define CONNECTION_LEFT             2
+#define CONNECTION_TOP              2
+#define CONNECTION_WIDTH           22
+#define CONNECTION_HEIGHT          22
+
 #define BATTERY_CHARGING_LEFT     78
 #define BATTERY_CHARGING_TOP       0
 #define BATTERY_CHARGING_WIDTH    22
