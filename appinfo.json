@@ -3,7 +3,7 @@
         "dummy": 0
     },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "CorneCode",
     "longName": "ColourCal",
