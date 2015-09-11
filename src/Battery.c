@@ -83,7 +83,7 @@ static void battery_meter_update(Layer* layer, GContext* context)
   graphics_draw_rect(
     context,
     GRect(
-      bounds.origin.x + STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH,
+      bounds.origin.x + STATUS_BATTERY_WIDTH - STATUS_BATTERY_NUB_WIDTH - 1, // Take off 1 so we are over the other line
       bounds.origin.y + ((STATUS_BATTERY_HEIGHT - STATUS_BATTERY_NUB_HEIGHT) / 2),
       STATUS_BATTERY_NUB_WIDTH,
       STATUS_BATTERY_NUB_HEIGHT
