@@ -111,7 +111,7 @@ TextLayer* battery_create_label_layer()
     s_battery_label_layer, 
     fonts_get_system_font(FONT_KEY_GOTHIC_14)
   );
-  text_layer_set_text_alignment(s_battery_label_layer, GTextAlignmentCenter);
+  text_layer_set_text_alignment(s_battery_label_layer, GTextAlignmentRight);
   
   return s_battery_label_layer;
 }
@@ -181,15 +181,18 @@ void charging_update()
 
 void battery_update(int battery_level, bool charging)
 {
-  if (battery_level != s_battery_level) {
-    // Record the new battery level
-    s_battery_level = battery_level;
-    layer_mark_dirty(s_battery_meter_layer);
-    update_battery_label();
-  }
   if (charging != s_charging) {
     // Record the charging state
     s_charging = charging;
     charging_update();
+  }
+  if (battery_level != s_battery_level) {
+    // Record the new battery level
+    s_battery_level = battery_level;
+    layer_mark_dirty(s_battery_meter_layer);
+    // Don't update the level if it's charging
+    if (!s_charging) {
+      update_battery_label();
+    }
   }
 }

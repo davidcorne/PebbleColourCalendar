@@ -143,7 +143,7 @@ static void calendar_update(Layer* layer, GContext* context)
     // It's a Sunday, so go back a week.
     day_start -= 7;
   }
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "%d", day_start);
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Week starts on day: %d", day_start);
   int16_t days_in_this_month = days_in_month(
     now->tm_mon,
     year
