@@ -28,6 +28,8 @@ Layer* connection_create_connected_layer()
 void connection_destroy_connected_layer()
 {
     bitmap_layer_destroy(s_connected_layer);
+    gbitmap_destroy(s_bluetooth_bitmap);
+    gbitmap_destroy(s_airplane_bitmap);
 }
 
 void connection_update(bool connected)

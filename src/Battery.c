@@ -11,7 +11,7 @@ static BitmapLayer* s_charging_image_layer;
 // Displayable state
 static char s_battery_percent_buffer[] = "%d%%";
 static int s_battery_level = 10;
-static bool s_charging = true;
+static bool s_charging = false;
 static GBitmap* s_charging_bitmap;
 
 static void update_battery_label() 
@@ -161,6 +161,7 @@ BitmapLayer* battery_create_charging_layer()
 void battery_destroy_charging_layer()
 {
   bitmap_layer_destroy(s_charging_image_layer);
+  gbitmap_destroy(s_charging_bitmap);
 }
 
 void charging_update()
@@ -181,18 +182,16 @@ void charging_update()
 
 void battery_update(int battery_level, bool charging)
 {
-  if (charging != s_charging) {
-    // Record the charging state
-    s_charging = charging;
-    charging_update();
-  }
-  if (battery_level != s_battery_level) {
-    // Record the new battery level
-    s_battery_level = battery_level;
-    layer_mark_dirty(s_battery_meter_layer);
-    // Don't update the level if it's charging
-    if (!s_charging) {
-      update_battery_label();
-    }
+  // Record the charging state
+  s_charging = charging;
+  charging_update();
+  
+  // Record the new battery level
+  s_battery_level = battery_level;
+  layer_mark_dirty(s_battery_meter_layer);
+  
+  // Don't update the level if it's charging
+  if (!s_charging) {
+    update_battery_label();
   }
 }
