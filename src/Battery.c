@@ -1,6 +1,7 @@
 #include "Battery.h"
 
 #include "Colour.h"
+#include "Debug.h"
 #include "miniprintf.h"
 #include "Layout.h"
 
@@ -22,8 +23,7 @@ static void update_battery_label()
     "%d%%", 
     s_battery_level
   );
-  APP_LOG(
-    APP_LOG_LEVEL_DEBUG,
+  DEBUG_LOG(
     "Battery label drawn with buffer %s",
     s_battery_percent_buffer
   );
@@ -32,8 +32,7 @@ static void update_battery_label()
 
 static void battery_meter_update(Layer* layer, GContext* context) 
 {
-  APP_LOG(
-    APP_LOG_LEVEL_DEBUG,
+  DEBUG_LOG(
     "Battery drawn with level %d",
     s_battery_level
   );

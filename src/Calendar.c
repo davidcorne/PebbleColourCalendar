@@ -1,4 +1,5 @@
 #include "Calendar.h"
+#include "Debug.h"
 #include "Layout.h"
 #include "miniprintf.h"
 
@@ -17,8 +18,7 @@ static char s_week_days[7][6] = {
   
 static int16_t days_in_month(int16_t month, int16_t year)
 {
-  APP_LOG(
-    APP_LOG_LEVEL_DEBUG,
+  DEBUG_LOG(
     "Asked for days in year %d month %d.",
     year,
     month
@@ -143,7 +143,7 @@ static void calendar_update(Layer* layer, GContext* context)
     // It's a Sunday, so go back a week.
     day_start -= 7;
   }
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Week starts on day: %d", day_start);
+  DEBUG_LOG("Week starts on day: %d", day_start);
   int16_t days_in_this_month = days_in_month(
     now->tm_mon,
     year

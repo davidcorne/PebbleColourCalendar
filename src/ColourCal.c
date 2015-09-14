@@ -2,6 +2,7 @@
 #include "Colour.h"
 #include "Calendar.h"
 #include "DateTime.h"
+#include "Debug.h"
 #include "Battery.h"
 #include "Connection.h"
 
@@ -9,7 +10,7 @@ static Window* s_main_window;
 
 static void main_window_load(Window *window) 
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "load main window");
+  DEBUG_LOG("load main window");
   TextLayer* time_layer = datetime_create_time_layer();
   // Add it as a child layer to the Window's root layer
   layer_add_child(
@@ -64,13 +65,13 @@ static void tick_handler(struct tm* tick_time, TimeUnits units_changed)
 
 static void battery_callback(BatteryChargeState state) 
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery_callback");
+  DEBUG_LOG("Battery_callback");
   battery_update(state.charge_percent, state.is_charging);
 }
 
 static void connection_callback(bool connected)
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "connection_callback");
+  DEBUG_LOG("connection_callback");
   connection_update(connected);
 }
 
@@ -87,7 +88,8 @@ static void main_window_unload(Window *window)
 
 static void init()
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "init");
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Debug level: %d", s_debug);
+  DEBUG_LOG("init");
   // Create the main window instance
   s_main_window = window_create();
   
