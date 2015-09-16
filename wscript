@@ -16,30 +16,29 @@ def options(ctx):
 
 def configure(ctx):
     ctx.load('pebble_sdk')
-
-def build(ctx):
-    ctx.load('pebble_sdk')
-
-    def generate_appinfo(task):
+    
+    def generate_appinfo(src, target):
         print("Genrating appinfo.")
-        src = task.inputs[0].abspath()
-        tgt = task.outputs[0].abspath()
-        print tgt
         json_data=open(src)
         data = json.load(json_data)
 
-        f = open(tgt,'w')
+        f = open(target,'w')
         f.write('#ifndef appinfo_h\n')
         f.write('#define appinfo_h\n')
         f.write('#define VERSION_LABEL "' + data["versionLabel"] + '"\n') 
+        f.write('#define COMPANY_NAME "' + data["companyName"] + '"\n') 
+        f.write('#define APPLICATION_NAME "' + data["longName"] + '"\n') 
+        f.write('#define APPLICATION_UUID "' + data["uuid"] + '"\n') 
         f.write('#endif\n')
         f.close()
 
-    ctx(
-        rule   = generate_appinfo,
-        source = 'appinfo.json',
-        target = '{0}/generated/appinfo.h'.format(top),
-    )
+    if not os.path.isdir("build/generated"):
+        os.makedirs("build/generated")
+    generate_appinfo("appinfo.json", "build/generated/appinfo.h")
+
+
+def build(ctx):
+    ctx.load('pebble_sdk')
 
     build_worker = os.path.exists('worker_src')
     binaries = []

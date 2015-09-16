@@ -88,7 +88,26 @@ static void main_window_unload(Window *window)
 
 static void init()
 {
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Debug level: %d", s_debug);
+  INFO_LOG(
+    "\tDebug level:      %d",
+    s_debug
+    );
+  INFO_LOG(
+    "\tVersion label:    %s",
+    VERSION_LABEL
+  );
+  INFO_LOG(
+    "\tCompany name:     %s",
+    COMPANY_NAME
+  );
+  INFO_LOG(
+    "\tApplication name: %s",
+    APPLICATION_NAME
+  );
+  INFO_LOG(
+    "\tUUID:             %s",
+    APPLICATION_UUID
+  );
   DEBUG_LOG("init");
   // Create the main window instance
   s_main_window = window_create();

@@ -14,3 +14,6 @@
   if (s_debug) { \
     app_log(APP_LOG_LEVEL_DEBUG, __FILE__, __LINE__, __VA_ARGS__); \
   }
+
+#define INFO_LOG(...) \
+   app_log(APP_LOG_LEVEL_INFO, __FILE__, __LINE__, __VA_ARGS__); 
