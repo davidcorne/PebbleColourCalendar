@@ -6,6 +6,7 @@
 #
 
 import os.path
+import json
 
 top = '.'
 out = 'build'
@@ -19,9 +20,30 @@ def configure(ctx):
 def build(ctx):
     ctx.load('pebble_sdk')
 
+    def generate_appinfo(task):
+        print("Genrating appinfo.")
+        src = task.inputs[0].abspath()
+        tgt = task.outputs[0].abspath()
+        print tgt
+        json_data=open(src)
+        data = json.load(json_data)
+
+        f = open(tgt,'w')
+        f.write('#ifndef appinfo_h\n')
+        f.write('#define appinfo_h\n')
+        f.write('#define VERSION_LABEL "' + data["versionLabel"] + '"\n') 
+        f.write('#endif\n')
+        f.close()
+
+    ctx(
+        rule   = generate_appinfo,
+        source = 'appinfo.json',
+        target = '{0}/generated/appinfo.h'.format(top),
+    )
+
     build_worker = os.path.exists('worker_src')
     binaries = []
-
+    
     for p in ctx.env.TARGET_PLATFORMS:
         ctx.set_env(ctx.all_envs[p])
         ctx.set_group(ctx.env.PLATFORM_NAME)

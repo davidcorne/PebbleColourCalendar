@@ -1,5 +1,6 @@
 // Uncomment this line to enable debugging.
 // #define COLOUR_CAL_DEBUG 1
+#include "generated/appinfo.h"
 
 #ifdef COLOUR_CAL_DEBUG
   #pragma message "--- DEBUGGING ENABLED ---"
