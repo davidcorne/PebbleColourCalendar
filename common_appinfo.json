@@ -25,7 +25,6 @@
     ]
     },
     "sdkVersion": "3",
-    "shortName": "ColourCal",
     "targetPlatforms": [
         "basalt",
         "aplite"
