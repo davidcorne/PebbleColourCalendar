@@ -42,4 +42,6 @@ else
     exit 1
 fi
 
-cp -f $file_to_copy appinfo.json
+
+cp -f common_appinfo.json appinfo.json
+cat $file_to_copy >> appinfo.json
