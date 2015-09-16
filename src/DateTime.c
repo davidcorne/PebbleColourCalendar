@@ -9,6 +9,8 @@ static char s_time_buffer[9];
 // [abbreviated-day] [01-31] [abbreviated-month]
 // 3 + 1 + 2 + 1 + 3 + 1
 static char s_date_buffer[11];
+static char s_12_hour_format[] = "%l:%M %p";
+static char s_24_hour_format[] = "%H:%M";
 
 TextLayer* datetime_create_time_layer()
 {
@@ -75,7 +77,12 @@ void datetime_update()
   time_t temp = time(NULL);
   struct tm* now = localtime(&temp);
   
-  strftime(s_time_buffer, sizeof(s_time_buffer), "%l:%M %p", now);
+  strftime(
+    s_time_buffer, 
+    sizeof(s_time_buffer), 
+    clock_is_24h_style() ? s_24_hour_format : s_12_hour_format,
+    now
+  );
   strftime(s_date_buffer, sizeof(s_date_buffer), "%a %d %b", now);
   
   text_layer_set_text(s_time_layer, s_time_buffer);
