@@ -1,4 +1,5 @@
 #include "Calendar.h"
+#include "Configuration.h"
 #include "Debug.h"
 #include "Layout.h"
 #include "miniprintf.h"
@@ -143,6 +144,14 @@ static void calendar_update(Layer* layer, GContext* context)
     // It's a Sunday, so go back a week.
     day_start -= 7;
   }
+  // Now adjust for configuration
+  Configuration* config = configuration_get();
+  if (config->weeks_shown == WEEKS_SHOWN_NEXT_ONE) {
+    day_start -= 7;  
+  } else if (config->weeks_shown == WEEKS_SHOWN_NEXT_NONE) {
+    day_start -= 14;  
+  }
+  
   DEBUG_LOG("Week starts on day: %d", day_start);
   int16_t days_in_this_month = days_in_month(
     now->tm_mon,

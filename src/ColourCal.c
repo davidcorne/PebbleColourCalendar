@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include "Configuration.h"
 #include "Colour.h"
 #include "Calendar.h"
 #include "DateTime.h"
@@ -109,6 +110,9 @@ static void init()
     APPLICATION_UUID
   );
   DEBUG_LOG("init");
+  // First of all, create the configuration
+  configuration_create();
+  
   // Create the main window instance
   s_main_window = window_create();
   
@@ -144,6 +148,8 @@ static void deinit()
 {
   // Destroy the main window
   window_destroy(s_main_window);
+  // Lastly, destroy the configuration
+  configuration_destroy();
 }
 
 int main(void)
