@@ -1,0 +1,10 @@
+{
+    "versionLabel": "1.2",
+    "watchapp": {
+        "watchface": true
+    },
+    "companyName": "CorneCode",
+    "longName": "ColourCal",
+    "shortName": "ColourCal",
+    "uuid": "c5dfbad5-7e83-4a8f-b2b9-6f8bd391530d"
+}
