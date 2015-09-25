@@ -6,4 +6,4 @@ build
 .lock-waf*
 
 # We'll build each appinfo.json for debug/release configurations
-# appinfo.json
+appinfo.json
