@@ -110,8 +110,8 @@ static void calendar_update(Layer* layer, GContext* context)
   }
   
   // Draw the days of the week
-  GFont* font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
-  TextLayout* layout_cache = NULL;
+  GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  GTextAttributes* layout_cache = NULL;
   for (int16_t i = 0; i < 7; ++i) {
     int16_t x = bounds.origin.x + (i * x_diff);
     graphics_draw_text(
@@ -157,7 +157,7 @@ static void calendar_update(Layer* layer, GContext* context)
     now->tm_mon != 11 ? year : year + 1
   );
   font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-  GFont* bold_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+  GFont bold_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
   graphics_context_set_text_color(context, COLOR_FALLBACK(GColorDarkGreen, GColorBlack));
   for (int16_t i = 0; i < 21; ++i) {
     int16_t current_day = day_start;
@@ -179,7 +179,7 @@ static void calendar_update(Layer* layer, GContext* context)
     // Now do the actual drawing
     int16_t x = bounds.origin.x + ((i % 7) * x_diff);
     int16_t y = start_y + ((i / 7) * y_diff);
-    GFont* current_font = current_day == now->tm_mday ? bold_font : font;
+    GFont current_font = current_day == now->tm_mday ? bold_font : font;
     graphics_draw_text(
       context,
       s_calendar_days[i],
